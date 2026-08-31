@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -33,7 +34,9 @@
             display: flex;
         }
 
-        /* TELA INICIAL */
+        /* =========================
+           TELA INICIAL
+        ========================= */
 
         #home {
             align-items: center;
@@ -79,7 +82,9 @@
             transform: translateY(-2px);
         }
 
-        /* NOME DA ORGANIZAÇÃO */
+        /* =========================
+           ORGANIZAÇÃO
+        ========================= */
 
         #organization {
             align-items: center;
@@ -122,7 +127,9 @@
             border-color: #8b5cf6;
         }
 
-        /* EQUIPE */
+        /* =========================
+           EQUIPE
+        ========================= */
 
         #team {
             display: block;
@@ -130,7 +137,7 @@
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1250px;
             margin: auto;
         }
 
@@ -138,7 +145,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             gap: 20px;
         }
 
@@ -147,13 +154,37 @@
         }
 
         .topbar h1 {
-            font-size: 36px;
+            font-size: 38px;
+            letter-spacing: -1px;
         }
 
         .team-subtitle {
             color: #858b9d;
-            margin-top: 6px;
+            margin-top: 7px;
         }
+
+        .team-badge {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #8b5cf6, #5b21b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+            font-weight: 900;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* =========================
+           CARDS DOS JOGADORES
+        ========================= */
 
         .players {
             display: grid;
@@ -163,53 +194,201 @@
         }
 
         .player-card {
-            background: #111522;
-            border: 1px solid #252b3d;
-            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, #151a2a 0%, #0e111c 100%);
+            border: 1px solid #282f43;
+            border-radius: 16px;
             padding: 22px;
-            transition: 0.2s;
+            transition: 0.25s;
+        }
+
+        .player-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
         }
 
         .player-card:hover {
             border-color: #8b5cf6;
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
         }
 
         .player-number {
             color: #555c70;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            margin-bottom: 18px;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .player-avatar {
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #252b42, #171b2b);
+            border: 1px solid #353c53;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            font-weight: 900;
+            color: #c4b5fd;
+            margin-bottom: 17px;
         }
 
         .player-card h3 {
             font-size: 19px;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
+        }
+
+        .nickname {
+            color: #8b5cf6;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+
+        .player-role {
+            display: inline-block;
+            background: #1c2030;
+            border: 1px solid #30364b;
+            color: #b7bdcc;
+            padding: 5px 9px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 18px;
         }
 
         .player-info {
             display: flex;
             flex-direction: column;
             gap: 9px;
+            border-top: 1px solid #252b3d;
+            padding-top: 15px;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
             gap: 10px;
-            font-size: 13px;
+            font-size: 12px;
         }
 
         .info-label {
             color: #777e91;
         }
 
+        .info-value {
+            color: #d7d9e0;
+            font-weight: bold;
+        }
+
+        /* =========================
+           ATRIBUTOS
+        ========================= */
+
+        .attributes {
+            margin-top: 17px;
+            padding-top: 15px;
+            border-top: 1px solid #252b3d;
+        }
+
+        .attribute {
+            margin-bottom: 10px;
+        }
+
+        .attribute:last-child {
+            margin-bottom: 0;
+        }
+
+        .attribute-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 10px;
+        }
+
+        .attribute-name {
+            color: #777e91;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .attribute-value {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .bar {
+            width: 100%;
+            height: 4px;
+            background: #252a3b;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #a78bfa);
+            border-radius: 10px;
+        }
+
+        /* =========================
+           OVERALL
+        ========================= */
+
+        .overall-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid #252b3d;
+        }
+
+        .overall-label {
+            color: #777e91;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .overall {
-            font-size: 27px;
+            font-size: 32px;
             font-weight: 900;
             color: #8b5cf6;
-            margin-top: 17px;
+            line-height: 1;
         }
+
+        .potential {
+            text-align: right;
+        }
+
+        .potential-label {
+            display: block;
+            color: #777e91;
+            font-size: 9px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .potential-value {
+            color: #c4b5fd;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           PARTIDA
+        ========================= */
 
         .match-area {
             background: linear-gradient(135deg, #13182a, #0d101a);
@@ -228,7 +407,9 @@
             margin-bottom: 22px;
         }
 
-        /* RESULTADO */
+        /* =========================
+           RESULTADO
+        ========================= */
 
         .result-box {
             margin-top: 25px;
@@ -271,9 +452,17 @@
             color: #8b5cf6;
         }
 
-        /* RESPONSIVO */
+        /* =========================
+           RESPONSIVO
+        ========================= */
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1150px) {
+            .players {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 800px) {
             .players {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -311,12 +500,17 @@
 
 <body>
 
-    <!-- TELA INICIAL -->
+    <!-- =========================
+         TELA INICIAL
+    ========================= -->
 
     <section id="home" class="screen active">
+
         <div class="home-content">
 
-            <h1>Esports <span>Manager</span></h1>
+            <h1>
+                Esports <span>Manager</span>
+            </h1>
 
             <p>
                 Crie sua organização e comande sua própria equipe de esports.
@@ -327,10 +521,13 @@
             </button>
 
         </div>
+
     </section>
 
 
-    <!-- ESCOLHA DA ORGANIZAÇÃO -->
+    <!-- =========================
+         ESCOLHA DA ORGANIZAÇÃO
+    ========================= -->
 
     <section id="organization" class="screen">
 
@@ -358,7 +555,9 @@
     </section>
 
 
-    <!-- EQUIPE -->
+    <!-- =========================
+         EQUIPE
+    ========================= -->
 
     <section id="team" class="screen">
 
@@ -366,23 +565,37 @@
 
             <div class="topbar">
 
-                <div>
-                    <h1 id="organizationTitle">
-                        Minha Organização
-                    </h1>
+                <div class="team-header">
 
-                    <p class="team-subtitle">
-                        Sua equipe principal
-                    </p>
+                    <div class="team-badge" id="teamBadge">
+                        EM
+                    </div>
+
+                    <div>
+
+                        <h1 id="organizationTitle">
+                            Minha Organização
+                        </h1>
+
+                        <p class="team-subtitle">
+                            Sua equipe principal
+                        </p>
+
+                    </div>
+
                 </div>
 
             </div>
 
 
+            <!-- JOGADORES -->
+
             <div class="players" id="playersContainer">
                 <!-- Jogadores serão inseridos pelo JavaScript -->
             </div>
 
+
+            <!-- PARTIDA -->
 
             <div class="match-area">
 
@@ -396,6 +609,8 @@
                     Simular partida
                 </button>
 
+
+                <!-- RESULTADO -->
 
                 <div id="resultBox" class="result-box">
 
@@ -440,51 +655,101 @@
 
     <script>
 
-        // JOGADORES FICTÍCIOS
+        /* =========================
+           JOGADORES
+        ========================= */
 
         const players = [
+
             {
                 nome: "Luan",
+                nickname: "Luan",
                 idade: 19,
                 nacionalidade: "Brasil",
+                bandeira: "🇧🇷",
                 funcao: "Duelista",
-                overall: 87
+                overall: 87,
+                aim: 91,
+                clutch: 84,
+                tatica: 79,
+                consistencia: 88,
+                comunicacao: 76,
+                potencial: 94
             },
+
             {
                 nome: "Kairo",
+                nickname: "Kairo",
                 idade: 21,
                 nacionalidade: "Brasil",
+                bandeira: "🇧🇷",
                 funcao: "Controlador",
-                overall: 84
+                overall: 84,
+                aim: 82,
+                clutch: 80,
+                tatica: 91,
+                consistencia: 85,
+                comunicacao: 88,
+                potencial: 89
             },
+
             {
                 nome: "Nox",
+                nickname: "Nox",
                 idade: 20,
                 nacionalidade: "Argentina",
+                bandeira: "🇦🇷",
                 funcao: "Sentinela",
-                overall: 86
+                overall: 86,
+                aim: 87,
+                clutch: 92,
+                tatica: 86,
+                consistencia: 84,
+                comunicacao: 81,
+                potencial: 91
             },
+
             {
                 nome: "Raze",
+                nickname: "Raze",
                 idade: 22,
                 nacionalidade: "Chile",
+                bandeira: "🇨🇱",
                 funcao: "Iniciador",
-                overall: 82
+                overall: 82,
+                aim: 79,
+                clutch: 76,
+                tatica: 89,
+                consistencia: 82,
+                comunicacao: 93,
+                potencial: 86
             },
+
             {
                 nome: "Mika",
+                nickname: "Mika",
                 idade: 18,
                 nacionalidade: "Brasil",
+                bandeira: "🇧🇷",
                 funcao: "Flex",
-                overall: 89
+                overall: 89,
+                aim: 93,
+                clutch: 87,
+                tatica: 84,
+                consistencia: 90,
+                comunicacao: 85,
+                potencial: 97
             }
+
         ];
 
 
         let organizationName = "";
 
 
-        // TROCA DE TELAS
+        /* =========================
+           TROCA DE TELAS
+        ========================= */
 
         function showScreen(screenId) {
 
@@ -496,58 +761,121 @@
         }
 
 
-        // BOTÃO COMEÇAR
+        /* =========================
+           BOTÃO COMEÇAR
+        ========================= */
 
         function goToOrganization() {
+
             showScreen("organization");
 
             setTimeout(() => {
-                document.getElementById("organizationInput").focus();
+
+                document
+                    .getElementById("organizationInput")
+                    .focus();
+
             }, 100);
+
         }
 
 
-        // CRIAR EQUIPE
+        /* =========================
+           CRIAR EQUIPE
+        ========================= */
 
         function createTeam() {
 
-            const input = document.getElementById("organizationInput");
+            const input =
+                document.getElementById("organizationInput");
 
-            const name = input.value.trim();
+            const name =
+                input.value.trim();
 
             if (name === "") {
-                alert("Digite um nome para sua organização.");
+
+                alert(
+                    "Digite um nome para sua organização."
+                );
+
                 return;
             }
 
             organizationName = name;
 
-            document.getElementById("organizationTitle").textContent =
-                organizationName;
+            document
+                .getElementById("organizationTitle")
+                .textContent = organizationName;
 
-            document.getElementById("myTeamName").textContent =
-                organizationName;
+            document
+                .getElementById("myTeamName")
+                .textContent = organizationName;
+
+
+            /* Cria uma pequena sigla para o escudo */
+
+            const words =
+                organizationName
+                    .split(" ")
+                    .filter(word => word.length > 0);
+
+            let initials = "";
+
+            if (words.length >= 2) {
+
+                initials =
+                    words[0][0] +
+                    words[1][0];
+
+            } else {
+
+                initials =
+                    organizationName
+                        .substring(0, 2);
+
+            }
+
+            document
+                .getElementById("teamBadge")
+                .textContent =
+                initials.toUpperCase();
+
 
             createPlayers();
 
             showScreen("team");
+
         }
 
 
-        // MOSTRAR JOGADORES
+        /* =========================
+           MOSTRAR JOGADORES
+        ========================= */
 
         function createPlayers() {
 
             const container =
-                document.getElementById("playersContainer");
+                document.getElementById(
+                    "playersContainer"
+                );
 
             container.innerHTML = "";
 
+
             players.forEach((player, index) => {
 
-                const card = document.createElement("div");
+                const card =
+                    document.createElement("div");
 
-                card.className = "player-card";
+                card.className =
+                    "player-card";
+
+
+                const initials =
+                    player.nome
+                        .substring(0, 2)
+                        .toUpperCase();
+
 
                 card.innerHTML = `
 
@@ -555,132 +883,299 @@
                         PLAYER 0${index + 1}
                     </div>
 
-                    <h3>${player.nome}</h3>
+                    <div class="player-avatar">
+                        ${initials}
+                    </div>
+
+                    <h3>
+                        ${player.nome}
+                    </h3>
+
+                    <div class="nickname">
+                        "${player.nickname}"
+                    </div>
+
+                    <div class="player-role">
+                        ${player.funcao}
+                    </div>
+
 
                     <div class="player-info">
 
                         <div class="info-row">
-                            <span class="info-label">Idade</span>
-                            <span>${player.idade}</span>
+                            <span class="info-label">
+                                Idade
+                            </span>
+
+                            <span class="info-value">
+                                ${player.idade} anos
+                            </span>
                         </div>
 
-                        <div class="info-row">
-                            <span class="info-label">País</span>
-                            <span>${player.nacionalidade}</span>
-                        </div>
 
                         <div class="info-row">
-                            <span class="info-label">Função</span>
-                            <span>${player.funcao}</span>
+                            <span class="info-label">
+                                País
+                            </span>
+
+                            <span class="info-value">
+                                ${player.bandeira}
+                                ${player.nacionalidade}
+                            </span>
                         </div>
 
                     </div>
 
-                    <div class="overall">
-                        ${player.overall}
-                        <small>OVR</small>
+
+                    <div class="attributes">
+
+                        ${createAttribute(
+                            "Aim",
+                            player.aim
+                        )}
+
+                        ${createAttribute(
+                            "Clutch",
+                            player.clutch
+                        )}
+
+                        ${createAttribute(
+                            "Tática",
+                            player.tatica
+                        )}
+
+                        ${createAttribute(
+                            "Consistência",
+                            player.consistencia
+                        )}
+
+                        ${createAttribute(
+                            "Comunicação",
+                            player.comunicacao
+                        )}
+
+                    </div>
+
+
+                    <div class="overall-area">
+
+                        <div>
+
+                            <div class="overall-label">
+                                Overall
+                            </div>
+
+                            <div class="overall">
+                                ${player.overall}
+                            </div>
+
+                        </div>
+
+
+                        <div class="potential">
+
+                            <span class="potential-label">
+                                Potencial
+                            </span>
+
+                            <span class="potential-value">
+                                ${player.potencial}
+                            </span>
+
+                        </div>
+
                     </div>
 
                 `;
 
+
                 container.appendChild(card);
 
             });
+
         }
 
 
-        // SIMULAR PARTIDA
+        /* =========================
+           CRIAR ATRIBUTO
+        ========================= */
+
+        function createAttribute(name, value) {
+
+            return `
+
+                <div class="attribute">
+
+                    <div class="attribute-top">
+
+                        <span class="attribute-name">
+                            ${name}
+                        </span>
+
+                        <span class="attribute-value">
+                            ${value}
+                        </span>
+
+                    </div>
+
+                    <div class="bar">
+
+                        <div
+                            class="bar-fill"
+                            style="width: ${value}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =========================
+           SIMULAR PARTIDA
+        ========================= */
 
         function simulateMatch() {
 
             const enemyTeams = [
+
                 "Titan Gaming",
                 "Shadow Core",
                 "Velocity",
                 "Nova Squad",
                 "Apex Wolves"
+
             ];
+
 
             const randomEnemy =
                 enemyTeams[
-                    Math.floor(Math.random() * enemyTeams.length)
+                    Math.floor(
+                        Math.random() *
+                        enemyTeams.length
+                    )
                 ];
 
-            // Calcula o overall médio da equipe
+
+            /* Calcula o overall médio */
 
             let totalOverall = 0;
 
             players.forEach(player => {
-                totalOverall += player.overall;
+
+                totalOverall +=
+                    player.overall;
+
             });
 
+
             const averageOverall =
-                totalOverall / players.length;
+                totalOverall /
+                players.length;
 
 
-            // Overall fictício do adversário
+            /* Overall do adversário */
 
             const enemyOverall =
-                Math.floor(Math.random() * 16) + 78;
+                Math.floor(
+                    Math.random() * 16
+                ) + 78;
 
 
-            // Gera uma pontuação simples
-
-            let myScore;
-            let enemyScore;
+            /* Fator aleatório */
 
             const difference =
-                averageOverall - enemyOverall;
+                averageOverall -
+                enemyOverall;
 
             const randomFactor =
                 Math.random() * 20 - 10;
 
             const performance =
-                difference + randomFactor;
+                difference +
+                randomFactor;
+
+
+            let myScore;
+            let enemyScore;
 
 
             if (performance >= 0) {
 
                 myScore =
-                    Math.floor(Math.random() * 5) + 10;
+                    Math.floor(
+                        Math.random() * 5
+                    ) + 10;
 
                 enemyScore =
-                    Math.floor(Math.random() * myScore);
+                    Math.floor(
+                        Math.random() *
+                        myScore
+                    );
 
             } else {
 
                 enemyScore =
-                    Math.floor(Math.random() * 5) + 10;
+                    Math.floor(
+                        Math.random() * 5
+                    ) + 10;
 
                 myScore =
-                    Math.floor(Math.random() * enemyScore);
+                    Math.floor(
+                        Math.random() *
+                        enemyScore
+                    );
 
             }
 
 
-            // Atualiza a tela
+            /* Atualiza resultado */
 
-            document.getElementById("enemyTeamName").textContent =
+            document
+                .getElementById(
+                    "enemyTeamName"
+                )
+                .textContent =
                 randomEnemy;
 
-            document.getElementById("myScore").textContent =
+
+            document
+                .getElementById(
+                    "myScore"
+                )
+                .textContent =
                 myScore;
 
-            document.getElementById("enemyScore").textContent =
+
+            document
+                .getElementById(
+                    "enemyScore"
+                )
+                .textContent =
                 enemyScore;
 
 
             let winner;
 
+
             if (myScore > enemyScore) {
 
                 winner =
-                    "🏆 " + organizationName + " venceu!";
+                    "🏆 " +
+                    organizationName +
+                    " venceu!";
 
-            } else if (enemyScore > myScore) {
+            } else if (
+                enemyScore > myScore
+            ) {
 
                 winner =
-                    "🏆 " + randomEnemy + " venceu!";
+                    "🏆 " +
+                    randomEnemy +
+                    " venceu!";
 
             } else {
 
@@ -690,11 +1185,18 @@
             }
 
 
-            document.getElementById("winnerText").textContent =
+            document
+                .getElementById(
+                    "winnerText"
+                )
+                .textContent =
                 winner;
 
 
-            document.getElementById("resultBox")
+            document
+                .getElementById(
+                    "resultBox"
+                )
                 .classList.add("show");
 
         }
@@ -703,3 +1205,4 @@
 
 </body>
 </html>
+```
