@@ -81,6 +81,13 @@
             transform: translateY(-2px);
         }
 
+        .btn:disabled {
+            background: #34384a;
+            color: #777e91;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* =========================
            ORGANIZAÇÃO
         ========================= */
@@ -144,7 +151,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             gap: 20px;
         }
 
@@ -175,6 +182,140 @@
             font-size: 23px;
             font-weight: 900;
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
+        }
+
+        /* =========================
+           CALENDÁRIO / TEMPORADA
+        ========================= */
+
+        .manager-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .manager-card {
+            background: linear-gradient(135deg, #13182a, #0d101a);
+            border: 1px solid #252b3d;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .manager-card-label {
+            color: #777e91;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .manager-card-value {
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .manager-card-small {
+            color: #858b9d;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .calendar-section {
+            margin-bottom: 35px;
+            background: #111522;
+            border: 1px solid #252b3d;
+            border-radius: 18px;
+            padding: 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-size: 21px;
+        }
+
+        .section-heading span {
+            color: #858b9d;
+            font-size: 12px;
+        }
+
+        .calendar-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .calendar-match {
+            display: grid;
+            grid-template-columns: 90px 1fr 120px;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #0b0e17;
+            border: 1px solid #252b3d;
+            border-radius: 10px;
+        }
+
+        .calendar-match.current {
+            border-color: #8b5cf6;
+            background: #151126;
+        }
+
+        .calendar-match.completed {
+            opacity: 0.65;
+        }
+
+        .match-day {
+            color: #a78bfa;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .match-opponent {
+            font-weight: bold;
+        }
+
+        .match-status {
+            text-align: right;
+            color: #858b9d;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .match-status.ready {
+            color: #a78bfa;
+        }
+
+        .match-status.win {
+            color: #a78bfa;
+        }
+
+        .match-status.loss {
+            color: #777e91;
+        }
+
+        .day-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .day-info {
+            color: #858b9d;
+            font-size: 13px;
+        }
+
+        .day-info strong {
+            color: white;
         }
 
         /* =========================
@@ -403,6 +544,12 @@
             margin-bottom: 22px;
         }
 
+        .match-locked {
+            color: #777e91;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
         /* =========================
            RESULTADO
         ========================= */
@@ -450,7 +597,7 @@
         }
 
         /* =========================
-           ESTATÍSTICAS DA PARTIDA
+           ESTATÍSTICAS
         ========================= */
 
         .match-stats {
@@ -562,27 +709,35 @@
         ========================= */
 
         @media (max-width: 1150px) {
-
             .players {
                 grid-template-columns: repeat(3, 1fr);
             }
-
         }
 
         @media (max-width: 800px) {
-
             .players {
                 grid-template-columns: repeat(2, 1fr);
+            }
+
+            .manager-panel {
+                grid-template-columns: 1fr;
             }
 
             .stats-table {
                 font-size: 11px;
             }
 
+            .calendar-match {
+                grid-template-columns: 70px 1fr;
+            }
+
+            .match-status {
+                text-align: left;
+                grid-column: 2;
+            }
         }
 
         @media (max-width: 600px) {
-
             .screen {
                 padding: 20px;
             }
@@ -616,6 +771,11 @@
             .stats-table th,
             .stats-table td {
                 padding: 8px 5px;
+            }
+
+            .day-controls {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
     </style>
@@ -711,7 +871,125 @@
             </div>
 
 
-            <!-- JOGADORES -->
+            <!-- =========================
+                 STATUS DA TEMPORADA
+            ========================= -->
+
+            <div class="manager-panel">
+
+                <div class="manager-card">
+
+                    <div class="manager-card-label">
+                        Dia
+                    </div>
+
+                    <div
+                        class="manager-card-value"
+                        id="currentDay"
+                    >
+                        1
+                    </div>
+
+                    <div class="manager-card-small">
+                        Temporada em andamento
+                    </div>
+
+                </div>
+
+
+                <div class="manager-card">
+
+                    <div class="manager-card-label">
+                        Temporada
+                    </div>
+
+                    <div
+                        class="manager-card-value"
+                        id="seasonProgress"
+                    >
+                        0 / 10
+                    </div>
+
+                    <div class="manager-card-small">
+                        Partidas disputadas
+                    </div>
+
+                </div>
+
+
+                <div class="manager-card">
+
+                    <div class="manager-card-label">
+                        Campanha
+                    </div>
+
+                    <div
+                        class="manager-card-value"
+                        id="seasonRecord"
+                    >
+                        0 - 0
+                    </div>
+
+                    <div class="manager-card-small">
+                        Vitórias - Derrotas
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 CALENDÁRIO
+            ========================= -->
+
+            <div class="calendar-section">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Calendário da temporada
+                    </h2>
+
+                    <span>
+                        10 partidas
+                    </span>
+
+                </div>
+
+
+                <div
+                    class="calendar-list"
+                    id="calendarList"
+                >
+                </div>
+
+
+                <div class="day-controls">
+
+                    <div
+                        class="day-info"
+                        id="dayMessage"
+                    >
+                        Hoje é o Dia 1.
+                    </div>
+
+                    <button
+                        class="btn"
+                        id="advanceDayButton"
+                        onclick="advanceDay()"
+                    >
+                        Avançar 1 dia
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+                 JOGADORES
+            ========================= -->
 
             <div
                 class="players"
@@ -721,22 +999,34 @@
             </div>
 
 
-            <!-- PARTIDA -->
+            <!-- =========================
+                 PARTIDA
+            ========================= -->
 
             <div class="match-area">
 
-                <h2>Próxima partida</h2>
+                <h2>
+                    Próxima partida
+                </h2>
 
-                <p>
+                <p id="matchDescription">
                     Sua equipe enfrentará uma organização adversária fictícia.
                 </p>
 
                 <button
                     class="btn"
+                    id="simulateButton"
                     onclick="simulateMatch()"
                 >
                     Simular partida
                 </button>
+
+                <div
+                    class="match-locked"
+                    id="matchLockedMessage"
+                >
+                    A partida está disponível no Dia 1.
+                </div>
 
 
                 <!-- RESULTADO -->
@@ -966,6 +1256,87 @@
 
 
         /* =========================
+           ESTADO DO JOGO
+        ========================= */
+
+        let currentDay = 1;
+
+        const totalMatches = 10;
+
+        let matchesPlayed = 0;
+
+        let wins = 0;
+
+        let losses = 0;
+
+        let currentMatch = 0;
+
+        let matchCompletedToday = false;
+
+
+        /*
+            Calendário fixo da temporada.
+
+            Cada partida acontece em
+            um determinado dia.
+        */
+
+        const seasonSchedule = [
+
+            {
+                day: 1,
+                opponent: "Titan Gaming"
+            },
+
+            {
+                day: 3,
+                opponent: "Shadow Core"
+            },
+
+            {
+                day: 5,
+                opponent: "Velocity"
+            },
+
+            {
+                day: 7,
+                opponent: "Nova Squad"
+            },
+
+            {
+                day: 9,
+                opponent: "Apex Wolves"
+            },
+
+            {
+                day: 11,
+                opponent: "Titan Gaming"
+            },
+
+            {
+                day: 13,
+                opponent: "Velocity"
+            },
+
+            {
+                day: 15,
+                opponent: "Shadow Core"
+            },
+
+            {
+                day: 17,
+                opponent: "Apex Wolves"
+            },
+
+            {
+                day: 19,
+                opponent: "Nova Squad"
+            }
+
+        ];
+
+
+        /* =========================
            TROCA DE TELAS
         ========================= */
 
@@ -1088,6 +1459,8 @@
 
 
             createPlayers();
+
+            updateManagerInterface();
 
             showScreen("team");
 
@@ -1294,6 +1667,350 @@
 
 
         /* =========================
+           ATUALIZAR INTERFACE
+        ========================= */
+
+        function updateManagerInterface() {
+
+            document
+                .getElementById(
+                    "currentDay"
+                )
+                .textContent =
+                currentDay;
+
+
+            document
+                .getElementById(
+                    "seasonProgress"
+                )
+                .textContent =
+                matchesPlayed +
+                " / " +
+                totalMatches;
+
+
+            document
+                .getElementById(
+                    "seasonRecord"
+                )
+                .textContent =
+                wins +
+                " - " +
+                losses;
+
+
+            renderCalendar();
+
+            updateNextMatch();
+
+        }
+
+
+        /* =========================
+           CALENDÁRIO
+        ========================= */
+
+        function renderCalendar() {
+
+            const calendar =
+                document.getElementById(
+                    "calendarList"
+                );
+
+
+            calendar.innerHTML = "";
+
+
+            seasonSchedule.forEach(
+                (match, index) => {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    item.className =
+                        "calendar-match";
+
+
+                    const isCurrent =
+                        index === currentMatch;
+
+
+                    const isCompleted =
+                        index < currentMatch;
+
+
+                    if (isCurrent) {
+
+                        item.classList.add(
+                            "current"
+                        );
+
+                    }
+
+
+                    if (isCompleted) {
+
+                        item.classList.add(
+                            "completed"
+                        );
+
+                    }
+
+
+                    let status =
+                        "Agendada";
+
+                    let statusClass = "";
+
+
+                    if (isCompleted) {
+
+                        /*
+                            O resultado da partida
+                            já foi contabilizado.
+                        */
+
+                        const result =
+                            match.result;
+
+
+                        if (result === "win") {
+
+                            status =
+                                "Vitória";
+
+                            statusClass =
+                                "win";
+
+                        } else {
+
+                            status =
+                                "Derrota";
+
+                            statusClass =
+                                "loss";
+
+                        }
+
+                    } else if (isCurrent) {
+
+                        if (
+                            currentDay >=
+                            match.day
+                        ) {
+
+                            status =
+                                "Disponível";
+
+                            statusClass =
+                                "ready";
+
+                        } else {
+
+                            status =
+                                "Aguardando";
+
+                        }
+
+                    }
+
+
+                    item.innerHTML = `
+
+                        <div class="match-day">
+                            DIA ${match.day}
+                        </div>
+
+                        <div class="match-opponent">
+                            ${organizationName || "Sua equipe"}
+                            ×
+                            ${match.opponent}
+                        </div>
+
+                        <div
+                            class="match-status ${statusClass}"
+                        >
+                            ${status}
+                        </div>
+
+                    `;
+
+
+                    calendar.appendChild(item);
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           PRÓXIMA PARTIDA
+        ========================= */
+
+        function updateNextMatch() {
+
+            const button =
+                document.getElementById(
+                    "simulateButton"
+                );
+
+
+            const message =
+                document.getElementById(
+                    "matchLockedMessage"
+                );
+
+
+            const description =
+                document.getElementById(
+                    "matchDescription"
+                );
+
+
+            const advanceButton =
+                document.getElementById(
+                    "advanceDayButton"
+                );
+
+
+            if (
+                matchesPlayed >=
+                totalMatches
+            ) {
+
+                description.textContent =
+                    "A temporada terminou. Sua campanha foi " +
+                    wins +
+                    " vitória(s) e " +
+                    losses +
+                    " derrota(s).";
+
+
+                button.disabled = true;
+
+                message.textContent =
+                    "Temporada encerrada.";
+
+                advanceButton.disabled =
+                    true;
+
+                return;
+
+            }
+
+
+            const match =
+                seasonSchedule[currentMatch];
+
+
+            description.textContent =
+                "Dia " +
+                match.day +
+                " • Sua equipe enfrentará " +
+                match.opponent +
+                ".";
+
+
+            if (
+                currentDay >=
+                match.day
+            ) {
+
+                button.disabled =
+                    false;
+
+
+                message.textContent =
+                    "A partida está disponível para ser simulada.";
+
+
+                advanceButton.disabled =
+                    true;
+
+            } else {
+
+                button.disabled =
+                    true;
+
+
+                const daysRemaining =
+                    match.day -
+                    currentDay;
+
+
+                message.textContent =
+                    "A partida acontece em " +
+                    daysRemaining +
+                    " dia(s).";
+
+
+                advanceButton.disabled =
+                    false;
+
+            }
+
+
+            document
+                .getElementById(
+                    "dayMessage"
+                )
+                .innerHTML =
+                "Hoje é o <strong>Dia " +
+                currentDay +
+                "</strong>.";
+
+        }
+
+
+        /* =========================
+           AVANÇAR DIA
+        ========================= */
+
+        function advanceDay() {
+
+            if (
+                matchesPlayed >=
+                totalMatches
+            ) {
+
+                return;
+
+            }
+
+
+            const nextMatch =
+                seasonSchedule[currentMatch];
+
+
+            /*
+                Não permite avançar se
+                existe uma partida hoje.
+            */
+
+            if (
+                currentDay >=
+                nextMatch.day
+            ) {
+
+                return;
+
+            }
+
+
+            currentDay++;
+
+
+            updateManagerInterface();
+
+        }
+
+
+        /* =========================
            GERAR NÚMERO ALEATÓRIO
         ========================= */
 
@@ -1338,29 +2055,6 @@
             player,
             teamBonus
         ) {
-
-            /*
-                Cada atributo influencia
-                uma parte do desempenho.
-
-                Aim:
-                capacidade de conseguir kills.
-
-                Clutch:
-                desempenho em momentos
-                importantes.
-
-                Tática:
-                leitura de jogo.
-
-                Consistência:
-                reduz variação.
-
-                Comunicação:
-                melhora o desempenho
-                coletivo.
-            */
-
 
             const consistencyFactor =
                 (player.consistencia - 50)
@@ -1413,13 +2107,6 @@
                 );
 
 
-            /*
-                Gera kills.
-                Jogadores com Aim e
-                Overall maiores tendem
-                a conseguir mais kills.
-            */
-
             let kills =
                 Math.round(
                     8 +
@@ -1437,12 +2124,6 @@
                     30
                 );
 
-
-            /*
-                Mortes.
-                Um bom desempenho
-                tende a reduzir mortes.
-            */
 
             let deaths =
                 Math.round(
@@ -1462,12 +2143,6 @@
                 );
 
 
-            /*
-                Assistências.
-                Comunicação + tática
-                aumentam assistências.
-            */
-
             let assists =
                 Math.round(
                     8 +
@@ -1486,10 +2161,6 @@
                     20
                 );
 
-
-            /*
-                Rating.
-            */
 
             let rating =
                 0.70 +
@@ -1534,29 +2205,43 @@
 
         function simulateMatch() {
 
-            const enemyTeams = [
+            if (
+                matchesPlayed >=
+                totalMatches
+            ) {
 
-                "Titan Gaming",
-                "Shadow Core",
-                "Velocity",
-                "Nova Squad",
-                "Apex Wolves"
+                return;
 
-            ];
+            }
 
 
-            const randomEnemy =
-                enemyTeams[
-                    Math.floor(
-                        Math.random()
-                        * enemyTeams.length
-                    )
-                ];
+            const match =
+                seasonSchedule[currentMatch];
 
 
             /*
-                Calcula força da equipe
-                usando todos os atributos.
+                Segurança:
+
+                a partida só pode ser
+                jogada no dia correto.
+            */
+
+            if (
+                currentDay <
+                match.day
+            ) {
+
+                return;
+
+            }
+
+
+            const randomEnemy =
+                match.opponent;
+
+
+            /*
+                Calcula força da equipe.
             */
 
             let totalStrength = 0;
@@ -1593,7 +2278,8 @@
 
 
             /*
-                Adversário fictício.
+                Adversário possui força
+                variável.
             */
 
             const enemyStrength =
@@ -1602,10 +2288,6 @@
                     94
                 );
 
-
-            /*
-                Fator aleatório.
-            */
 
             const randomFactor =
                 randomBetween(
@@ -1622,9 +2304,6 @@
 
             /*
                 Bônus coletivo.
-
-                Comunicação e tática
-                influenciam o time inteiro.
             */
 
             const averageCommunication =
@@ -1653,23 +2332,12 @@
                 ) * 0.06;
 
 
-            /*
-                Define vencedor.
-            */
-
             let myTeamWins =
                 difference >= 0;
 
 
-            /*
-                Gera o placar.
-
-                Mantemos a lógica
-                semelhante ao sistema
-                anterior.
-            */
-
             let myScore;
+
             let enemyScore;
 
 
@@ -1693,13 +2361,9 @@
                     );
 
 
-                /*
-                    Garante que não haja
-                    empate quando há vencedor.
-                */
-
                 if (
-                    enemyScore >= myScore
+                    enemyScore >=
+                    myScore
                 ) {
 
                     enemyScore =
@@ -1728,7 +2392,8 @@
 
 
                 if (
-                    myScore >= enemyScore
+                    myScore >=
+                    enemyScore
                 ) {
 
                     myScore =
@@ -1740,8 +2405,7 @@
 
 
             /*
-                Gera desempenho
-                dos jogadores.
+                Gera desempenho.
             */
 
             const performances =
@@ -1755,8 +2419,7 @@
 
 
             /*
-                Ordena para encontrar
-                o MVP.
+                MVP.
             */
 
             const sortedPerformances =
@@ -1770,6 +2433,43 @@
 
             const mvp =
                 sortedPerformances[0];
+
+
+            /*
+                Atualiza resultado
+                da partida no calendário.
+            */
+
+            if (myScore > enemyScore) {
+
+                match.result =
+                    "win";
+
+                wins++;
+
+            } else {
+
+                match.result =
+                    "loss";
+
+                losses++;
+
+            }
+
+
+            matchesPlayed++;
+
+
+            /*
+                Avança para a próxima
+                partida do calendário.
+            */
+
+            currentMatch++;
+
+
+            matchCompletedToday =
+                true;
 
 
             /*
@@ -1952,6 +2652,38 @@
                 .classList.add(
                     "show"
                 );
+
+
+            /*
+                Atualiza calendário.
+            */
+
+            updateManagerInterface();
+
+
+            /*
+                Se terminou a temporada,
+                mostra mensagem.
+            */
+
+            if (
+                matchesPlayed >=
+                totalMatches
+            ) {
+
+                document
+                    .getElementById(
+                        "dayMessage"
+                    )
+                    .innerHTML =
+                    "<strong>Temporada encerrada!</strong> " +
+                    "Campanha final: " +
+                    wins +
+                    " - " +
+                    losses +
+                    ".";
+
+            }
 
         }
 
