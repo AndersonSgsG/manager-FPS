@@ -149,10 +149,6 @@
             gap: 20px;
         }
 
-        .organization-name {
-            color: #8b5cf6;
-        }
-
         .topbar h1 {
             font-size: 38px;
             letter-spacing: -1px;
@@ -161,6 +157,12 @@
         .team-subtitle {
             color: #858b9d;
             margin-top: 7px;
+        }
+
+        .team-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .team-badge {
@@ -174,12 +176,6 @@
             font-size: 23px;
             font-weight: 900;
             box-shadow: 0 10px 30px rgba(139, 92, 246, 0.25);
-        }
-
-        .team-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
         }
 
         /* =========================
@@ -289,6 +285,7 @@
         .info-value {
             color: #d7d9e0;
             font-weight: bold;
+            text-align: right;
         }
 
         /* =========================
@@ -437,8 +434,9 @@
             justify-content: center;
             align-items: center;
             gap: 25px;
-            font-size: 32px;
+            font-size: 28px;
             font-weight: 900;
+            flex-wrap: wrap;
         }
 
         .score-number {
@@ -453,22 +451,139 @@
         }
 
         /* =========================
+           ESTATÍSTICAS DA PARTIDA
+        ========================= */
+
+        .match-stats {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .match-stats-title {
+            color: #858b9d;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .stats-table th {
+            color: #777e91;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 12px 10px;
+            background: #111522;
+            text-align: center;
+        }
+
+        .stats-table th:first-child {
+            text-align: left;
+        }
+
+        .stats-table td {
+            padding: 12px 10px;
+            border-top: 1px solid #252b3d;
+            background: #0e111b;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .stats-table td:first-child {
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .player-stat-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: #20253a;
+            color: #c4b5fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: bold;
+        }
+
+        .rating {
+            color: #a78bfa;
+            font-weight: 900;
+        }
+
+        /* =========================
+           MVP
+        ========================= */
+
+        .mvp-box {
+            margin-top: 22px;
+            background: linear-gradient(135deg, #19152b, #111522);
+            border: 1px solid #5b3c9d;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .mvp-label {
+            color: #a78bfa;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .mvp-name {
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .mvp-rating {
+            color: #858b9d;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* =========================
            RESPONSIVO
         ========================= */
 
         @media (max-width: 1150px) {
+
             .players {
                 grid-template-columns: repeat(3, 1fr);
             }
+
         }
 
         @media (max-width: 800px) {
+
             .players {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .stats-table {
+                font-size: 11px;
+            }
+
         }
 
         @media (max-width: 600px) {
+
             .screen {
                 padding: 20px;
             }
@@ -488,11 +603,20 @@
 
             .score {
                 gap: 12px;
-                font-size: 22px;
+                font-size: 20px;
             }
 
             .score-number {
                 font-size: 40px;
+            }
+
+            .match-area {
+                padding: 20px 12px;
+            }
+
+            .stats-table th,
+            .stats-table td {
+                padding: 8px 5px;
             }
         }
     </style>
@@ -526,7 +650,7 @@
 
 
     <!-- =========================
-         ESCOLHA DA ORGANIZAÇÃO
+         ORGANIZAÇÃO
     ========================= -->
 
     <section id="organization" class="screen">
@@ -590,7 +714,10 @@
 
             <!-- JOGADORES -->
 
-            <div class="players" id="playersContainer">
+            <div
+                class="players"
+                id="playersContainer"
+            >
                 <!-- Jogadores serão inseridos pelo JavaScript -->
             </div>
 
@@ -605,18 +732,25 @@
                     Sua equipe enfrentará uma organização adversária fictícia.
                 </p>
 
-                <button class="btn" onclick="simulateMatch()">
+                <button
+                    class="btn"
+                    onclick="simulateMatch()"
+                >
                     Simular partida
                 </button>
 
 
                 <!-- RESULTADO -->
 
-                <div id="resultBox" class="result-box">
+                <div
+                    id="resultBox"
+                    class="result-box"
+                >
 
                     <div class="result-title">
                         Resultado da partida
                     </div>
+
 
                     <div class="score">
 
@@ -624,13 +758,19 @@
                             Minha equipe
                         </span>
 
-                        <span id="myScore" class="score-number">
+                        <span
+                            id="myScore"
+                            class="score-number"
+                        >
                             0
                         </span>
 
                         <span>×</span>
 
-                        <span id="enemyScore" class="score-number">
+                        <span
+                            id="enemyScore"
+                            class="score-number"
+                        >
                             0
                         </span>
 
@@ -640,8 +780,87 @@
 
                     </div>
 
-                    <div id="winnerText" class="winner">
+
+                    <div
+                        id="winnerText"
+                        class="winner"
+                    >
                         —
+                    </div>
+
+
+                    <!-- MVP -->
+
+                    <div
+                        id="mvpBox"
+                        class="mvp-box"
+                    >
+
+                        <div class="mvp-label">
+                            ⭐ MVP DA PARTIDA
+                        </div>
+
+                        <div
+                            id="mvpName"
+                            class="mvp-name"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            id="mvpRating"
+                            class="mvp-rating"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+
+                    <!-- ESTATÍSTICAS -->
+
+                    <div class="match-stats">
+
+                        <div class="match-stats-title">
+                            Estatísticas da sua equipe
+                        </div>
+
+                        <table class="stats-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Jogador
+                                    </th>
+
+                                    <th>
+                                        K
+                                    </th>
+
+                                    <th>
+                                        D
+                                    </th>
+
+                                    <th>
+                                        A
+                                    </th>
+
+                                    <th>
+                                        Rating
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="statsTableBody">
+
+                            </tbody>
+
+                        </table>
+
                     </div>
 
                 </div>
@@ -753,11 +972,18 @@
 
         function showScreen(screenId) {
 
-            document.querySelectorAll(".screen").forEach(screen => {
-                screen.classList.remove("active");
-            });
+            document
+                .querySelectorAll(".screen")
+                .forEach(screen => {
 
-            document.getElementById(screenId).classList.add("active");
+                    screen.classList.remove("active");
+
+                });
+
+            document
+                .getElementById(screenId)
+                .classList.add("active");
+
         }
 
 
@@ -787,10 +1013,13 @@
         function createTeam() {
 
             const input =
-                document.getElementById("organizationInput");
+                document.getElementById(
+                    "organizationInput"
+                );
 
             const name =
                 input.value.trim();
+
 
             if (name === "") {
 
@@ -799,27 +1028,42 @@
                 );
 
                 return;
+
             }
+
 
             organizationName = name;
 
-            document
-                .getElementById("organizationTitle")
-                .textContent = organizationName;
 
             document
-                .getElementById("myTeamName")
-                .textContent = organizationName;
+                .getElementById(
+                    "organizationTitle"
+                )
+                .textContent =
+                organizationName;
 
 
-            /* Cria uma pequena sigla para o escudo */
+            document
+                .getElementById(
+                    "myTeamName"
+                )
+                .textContent =
+                organizationName;
+
+
+            /* Cria sigla da organização */
 
             const words =
                 organizationName
                     .split(" ")
-                    .filter(word => word.length > 0);
+                    .filter(
+                        word =>
+                            word.length > 0
+                    );
+
 
             let initials = "";
+
 
             if (words.length >= 2) {
 
@@ -835,8 +1079,11 @@
 
             }
 
+
             document
-                .getElementById("teamBadge")
+                .getElementById(
+                    "teamBadge"
+                )
                 .textContent =
                 initials.toUpperCase();
 
@@ -859,148 +1106,161 @@
                     "playersContainer"
                 );
 
+
             container.innerHTML = "";
 
 
-            players.forEach((player, index) => {
+            players.forEach(
+                (player, index) => {
 
-                const card =
-                    document.createElement("div");
-
-                card.className =
-                    "player-card";
-
-
-                const initials =
-                    player.nome
-                        .substring(0, 2)
-                        .toUpperCase();
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
 
 
-                card.innerHTML = `
-
-                    <div class="player-number">
-                        PLAYER 0${index + 1}
-                    </div>
-
-                    <div class="player-avatar">
-                        ${initials}
-                    </div>
-
-                    <h3>
-                        ${player.nome}
-                    </h3>
-
-                    <div class="nickname">
-                        "${player.nickname}"
-                    </div>
-
-                    <div class="player-role">
-                        ${player.funcao}
-                    </div>
+                    card.className =
+                        "player-card";
 
 
-                    <div class="player-info">
+                    const initials =
+                        player.nome
+                            .substring(0, 2)
+                            .toUpperCase();
 
-                        <div class="info-row">
-                            <span class="info-label">
-                                Idade
-                            </span>
 
-                            <span class="info-value">
-                                ${player.idade} anos
-                            </span>
+                    card.innerHTML = `
+
+                        <div class="player-number">
+                            PLAYER 0${index + 1}
+                        </div>
+
+                        <div class="player-avatar">
+                            ${initials}
+                        </div>
+
+                        <h3>
+                            ${player.nome}
+                        </h3>
+
+                        <div class="nickname">
+                            "${player.nickname}"
+                        </div>
+
+                        <div class="player-role">
+                            ${player.funcao}
                         </div>
 
 
-                        <div class="info-row">
-                            <span class="info-label">
-                                País
-                            </span>
+                        <div class="player-info">
 
-                            <span class="info-value">
-                                ${player.bandeira}
-                                ${player.nacionalidade}
-                            </span>
-                        </div>
+                            <div class="info-row">
 
-                    </div>
+                                <span class="info-label">
+                                    Idade
+                                </span>
 
+                                <span class="info-value">
+                                    ${player.idade} anos
+                                </span>
 
-                    <div class="attributes">
-
-                        ${createAttribute(
-                            "Aim",
-                            player.aim
-                        )}
-
-                        ${createAttribute(
-                            "Clutch",
-                            player.clutch
-                        )}
-
-                        ${createAttribute(
-                            "Tática",
-                            player.tatica
-                        )}
-
-                        ${createAttribute(
-                            "Consistência",
-                            player.consistencia
-                        )}
-
-                        ${createAttribute(
-                            "Comunicação",
-                            player.comunicacao
-                        )}
-
-                    </div>
-
-
-                    <div class="overall-area">
-
-                        <div>
-
-                            <div class="overall-label">
-                                Overall
                             </div>
 
-                            <div class="overall">
-                                ${player.overall}
+
+                            <div class="info-row">
+
+                                <span class="info-label">
+                                    País
+                                </span>
+
+                                <span class="info-value">
+                                    ${player.bandeira}
+                                    ${player.nacionalidade}
+                                </span>
+
                             </div>
 
                         </div>
 
 
-                        <div class="potential">
+                        <div class="attributes">
 
-                            <span class="potential-label">
-                                Potencial
-                            </span>
+                            ${createAttribute(
+                                "Aim",
+                                player.aim
+                            )}
 
-                            <span class="potential-value">
-                                ${player.potencial}
-                            </span>
+                            ${createAttribute(
+                                "Clutch",
+                                player.clutch
+                            )}
+
+                            ${createAttribute(
+                                "Tática",
+                                player.tatica
+                            )}
+
+                            ${createAttribute(
+                                "Consistência",
+                                player.consistencia
+                            )}
+
+                            ${createAttribute(
+                                "Comunicação",
+                                player.comunicacao
+                            )}
 
                         </div>
 
-                    </div>
 
-                `;
+                        <div class="overall-area">
+
+                            <div>
+
+                                <div class="overall-label">
+                                    Overall
+                                </div>
+
+                                <div class="overall">
+                                    ${player.overall}
+                                </div>
+
+                            </div>
 
 
-                container.appendChild(card);
+                            <div class="potential">
 
-            });
+                                <span class="potential-label">
+                                    Potencial
+                                </span>
+
+                                <span class="potential-value">
+                                    ${player.potencial}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                }
+            );
 
         }
 
 
         /* =========================
-           CRIAR ATRIBUTO
+           CRIAR BARRA DE ATRIBUTO
         ========================= */
 
-        function createAttribute(name, value) {
+        function createAttribute(
+            name,
+            value
+        ) {
 
             return `
 
@@ -1035,6 +1295,241 @@
 
 
         /* =========================
+           GERAR NÚMERO ALEATÓRIO
+        ========================= */
+
+        function randomBetween(
+            min,
+            max
+        ) {
+
+            return Math.random() *
+                (max - min) +
+                min;
+
+        }
+
+
+        /* =========================
+           LIMITAR VALOR
+        ========================= */
+
+        function clamp(
+            value,
+            min,
+            max
+        ) {
+
+            return Math.max(
+                min,
+                Math.min(
+                    max,
+                    value
+                )
+            );
+
+        }
+
+
+        /* =========================
+           SIMULAR DESEMPENHO
+        ========================= */
+
+        function simulatePlayerPerformance(
+            player,
+            teamBonus
+        ) {
+
+            /*
+                Cada atributo influencia
+                uma parte do desempenho.
+
+                Aim:
+                capacidade de conseguir kills.
+
+                Clutch:
+                desempenho em momentos
+                importantes.
+
+                Tática:
+                leitura de jogo.
+
+                Consistência:
+                reduz variação.
+
+                Comunicação:
+                melhora o desempenho
+                coletivo.
+            */
+
+
+            const consistencyFactor =
+                (player.consistencia - 50)
+                * 0.08;
+
+
+            const communicationFactor =
+                (player.comunicacao - 50)
+                * 0.05;
+
+
+            const tacticalFactor =
+                (player.tatica - 50)
+                * 0.06;
+
+
+            const clutchFactor =
+                (player.clutch - 50)
+                * 0.04;
+
+
+            const aimFactor =
+                (player.aim - 50)
+                * 0.10;
+
+
+            const randomPerformance =
+                randomBetween(
+                    -12,
+                    12
+                );
+
+
+            const performance =
+                player.overall
+                + aimFactor
+                + tacticalFactor
+                + clutchFactor
+                + consistencyFactor
+                + communicationFactor
+                + teamBonus
+                + randomPerformance;
+
+
+            const normalized =
+                clamp(
+                    performance,
+                    45,
+                    115
+                );
+
+
+            /*
+                Gera kills.
+                Jogadores com Aim e
+                Overall maiores tendem
+                a conseguir mais kills.
+            */
+
+            let kills =
+                Math.round(
+                    8 +
+                    (normalized - 55)
+                    * 0.30
+                    +
+                    randomBetween(-3, 3)
+                );
+
+
+            kills =
+                clamp(
+                    kills,
+                    6,
+                    30
+                );
+
+
+            /*
+                Mortes.
+                Um bom desempenho
+                tende a reduzir mortes.
+            */
+
+            let deaths =
+                Math.round(
+                    20 -
+                    (normalized - 50)
+                    * 0.10
+                    +
+                    randomBetween(-3, 3)
+                );
+
+
+            deaths =
+                clamp(
+                    deaths,
+                    8,
+                    24
+                );
+
+
+            /*
+                Assistências.
+                Comunicação + tática
+                aumentam assistências.
+            */
+
+            let assists =
+                Math.round(
+                    8 +
+                    (player.comunicacao - 50)
+                    * 0.12 +
+                    (player.tatica - 50)
+                    * 0.08 +
+                    randomBetween(-2, 3)
+                );
+
+
+            assists =
+                clamp(
+                    assists,
+                    3,
+                    20
+                );
+
+
+            /*
+                Rating.
+            */
+
+            let rating =
+                0.70 +
+                (kills / 100) +
+                (assists / 180) -
+                (deaths / 160) +
+                (normalized - 70)
+                * 0.008;
+
+
+            rating =
+                clamp(
+                    rating,
+                    0.65,
+                    1.60
+                );
+
+
+            rating =
+                Math.round(
+                    rating * 100
+                ) / 100;
+
+
+            return {
+
+                nome: player.nome,
+                nickname: player.nickname,
+                kills: kills,
+                deaths: deaths,
+                assists: assists,
+                rating: rating
+
+            };
+
+        }
+
+
+        /* =========================
            SIMULAR PARTIDA
         ========================= */
 
@@ -1054,85 +1549,233 @@
             const randomEnemy =
                 enemyTeams[
                     Math.floor(
-                        Math.random() *
-                        enemyTeams.length
+                        Math.random()
+                        * enemyTeams.length
                     )
                 ];
 
 
-            /* Calcula o overall médio */
+            /*
+                Calcula força da equipe
+                usando todos os atributos.
+            */
 
-            let totalOverall = 0;
-
-            players.forEach(player => {
-
-                totalOverall +=
-                    player.overall;
-
-            });
+            let totalStrength = 0;
 
 
-            const averageOverall =
-                totalOverall /
+            players.forEach(
+                player => {
+
+                    const playerStrength =
+
+                        player.overall * 0.35 +
+
+                        player.aim * 0.18 +
+
+                        player.tatica * 0.17 +
+
+                        player.clutch * 0.10 +
+
+                        player.consistencia * 0.12 +
+
+                        player.comunicacao * 0.08;
+
+
+                    totalStrength +=
+                        playerStrength;
+
+                }
+            );
+
+
+            const teamStrength =
+                totalStrength /
                 players.length;
 
 
-            /* Overall do adversário */
+            /*
+                Adversário fictício.
+            */
 
-            const enemyOverall =
-                Math.floor(
-                    Math.random() * 16
-                ) + 78;
+            const enemyStrength =
+                randomBetween(
+                    72,
+                    94
+                );
 
 
-            /* Fator aleatório */
-
-            const difference =
-                averageOverall -
-                enemyOverall;
+            /*
+                Fator aleatório.
+            */
 
             const randomFactor =
-                Math.random() * 20 - 10;
+                randomBetween(
+                    -8,
+                    8
+                );
 
-            const performance =
-                difference +
+
+            const difference =
+                teamStrength -
+                enemyStrength +
                 randomFactor;
 
+
+            /*
+                Bônus coletivo.
+
+                Comunicação e tática
+                influenciam o time inteiro.
+            */
+
+            const averageCommunication =
+                players.reduce(
+                    (sum, player) =>
+                        sum +
+                        player.comunicacao,
+                    0
+                ) / players.length;
+
+
+            const averageTactics =
+                players.reduce(
+                    (sum, player) =>
+                        sum +
+                        player.tatica,
+                    0
+                ) / players.length;
+
+
+            const teamBonus =
+                (
+                    averageCommunication +
+                    averageTactics -
+                    100
+                ) * 0.06;
+
+
+            /*
+                Define vencedor.
+            */
+
+            let myTeamWins =
+                difference >= 0;
+
+
+            /*
+                Gera o placar.
+
+                Mantemos a lógica
+                semelhante ao sistema
+                anterior.
+            */
 
             let myScore;
             let enemyScore;
 
 
-            if (performance >= 0) {
+            if (myTeamWins) {
 
                 myScore =
                     Math.floor(
-                        Math.random() * 5
-                    ) + 10;
+                        randomBetween(
+                            10,
+                            14
+                        )
+                    );
+
 
                 enemyScore =
                     Math.floor(
-                        Math.random() *
-                        myScore
+                        randomBetween(
+                            4,
+                            myScore
+                        )
                     );
+
+
+                /*
+                    Garante que não haja
+                    empate quando há vencedor.
+                */
+
+                if (
+                    enemyScore >= myScore
+                ) {
+
+                    enemyScore =
+                        myScore - 1;
+
+                }
 
             } else {
 
                 enemyScore =
                     Math.floor(
-                        Math.random() * 5
-                    ) + 10;
+                        randomBetween(
+                            10,
+                            14
+                        )
+                    );
+
 
                 myScore =
                     Math.floor(
-                        Math.random() *
-                        enemyScore
+                        randomBetween(
+                            4,
+                            enemyScore
+                        )
                     );
+
+
+                if (
+                    myScore >= enemyScore
+                ) {
+
+                    myScore =
+                        enemyScore - 1;
+
+                }
 
             }
 
 
-            /* Atualiza resultado */
+            /*
+                Gera desempenho
+                dos jogadores.
+            */
+
+            const performances =
+                players.map(
+                    player =>
+                        simulatePlayerPerformance(
+                            player,
+                            teamBonus
+                        )
+                );
+
+
+            /*
+                Ordena para encontrar
+                o MVP.
+            */
+
+            const sortedPerformances =
+                [...performances]
+                    .sort(
+                        (a, b) =>
+                            b.rating -
+                            a.rating
+                    );
+
+
+            const mvp =
+                sortedPerformances[0];
+
+
+            /*
+                Atualiza adversário.
+            */
 
             document
                 .getElementById(
@@ -1141,6 +1784,10 @@
                 .textContent =
                 randomEnemy;
 
+
+            /*
+                Atualiza placar.
+            */
 
             document
                 .getElementById(
@@ -1158,6 +1805,10 @@
                 enemyScore;
 
 
+            /*
+                Resultado.
+            */
+
             let winner;
 
 
@@ -1168,19 +1819,12 @@
                     organizationName +
                     " venceu!";
 
-            } else if (
-                enemyScore > myScore
-            ) {
+            } else {
 
                 winner =
                     "🏆 " +
                     randomEnemy +
                     " venceu!";
-
-            } else {
-
-                winner =
-                    "Empate!";
 
             }
 
@@ -1193,11 +1837,122 @@
                 winner;
 
 
+            /*
+                MVP.
+            */
+
+            document
+                .getElementById(
+                    "mvpName"
+                )
+                .textContent =
+                mvp.nickname;
+
+
+            document
+                .getElementById(
+                    "mvpRating"
+                )
+                .textContent =
+                "Rating " +
+                mvp.rating +
+                " • " +
+                mvp.kills +
+                " K / " +
+                mvp.deaths +
+                " D / " +
+                mvp.assists +
+                " A";
+
+
+            /*
+                Estatísticas.
+            */
+
+            const statsBody =
+                document
+                    .getElementById(
+                        "statsTableBody"
+                    );
+
+
+            statsBody.innerHTML = "";
+
+
+            performances.forEach(
+                performance => {
+
+                    const row =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    const initials =
+                        performance.nome
+                            .substring(
+                                0,
+                                2
+                            )
+                            .toUpperCase();
+
+
+                    row.innerHTML = `
+
+                        <td>
+
+                            <div class="player-stat-name">
+
+                                <div class="mini-avatar">
+                                    ${initials}
+                                </div>
+
+                                <span>
+                                    ${performance.nickname}
+                                </span>
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            ${performance.kills}
+                        </td>
+
+                        <td>
+                            ${performance.deaths}
+                        </td>
+
+                        <td>
+                            ${performance.assists}
+                        </td>
+
+                        <td class="rating">
+                            ${performance.rating}
+                        </td>
+
+                    `;
+
+
+                    statsBody.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            /*
+                Mostra resultado.
+            */
+
             document
                 .getElementById(
                     "resultBox"
                 )
-                .classList.add("show");
+                .classList.add(
+                    "show"
+                );
 
         }
 
